@@ -7,9 +7,10 @@ import User from "../models/user.js";
  */
 export const register = async (req, res) => {
   try {
-    const { fullname, email, password } = req.body;//object destructuring
+    const { fullName, fullname, email, password } = req.body;
+    const name = fullName || fullname;
 
-    if (!fullname || !email || !password) {
+    if (!name || !email || !password) {
       return res.status(400).json({ message: "Please fill all required fields" });
     }
 
@@ -21,7 +22,7 @@ export const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
-      fullname,
+      fullname: name,
       email,
       password: hashedPassword,
     });

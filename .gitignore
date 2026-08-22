@@ -1,2 +1,5 @@
 node_modules/
 .env
+
+# Uploaded resume files are local runtime data.
+server/src/uploads/resumes/*
