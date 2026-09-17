@@ -3,6 +3,7 @@ import dotenv from "dotenv"
 import cookieParser from "cookie-parser"
 import authRoutes from "../src/routes/auth.routes.js"
 import resumeRoutes from "../src/routes/resume.routes.js"
+import resumeAnalysisRoutes from "../src/routes/resumeAnalysis.routes.js"
 import DBConnection from "./config/db.js"
 
 
@@ -14,14 +15,12 @@ app.use(cookieParser())
 DBConnection()
 
 
-app.get("/",()=>{
-    res.send("Ai interview Platform is running")
 
-})
 
 //routes
 app.use("/api/auth", authRoutes)
 app.use("/api/resume", resumeRoutes)
+app.use("/api/resume", resumeAnalysisRoutes)
 
 app.use((error, _req, res, _next) => {
     if (error.code === "LIMIT_FILE_SIZE") {

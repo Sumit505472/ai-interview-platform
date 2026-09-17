@@ -134,3 +134,28 @@ export const saveResumeAnalysis = async (resumeId, userId) => {
     }
   );
 };
+
+export const getResumeAnalysis = async (resumeId, userId) => {
+  if (!mongoose.Types.ObjectId.isValid(resumeId)) {
+    throw createServiceError("Invalid resume ID format", 400);
+  }
+
+  const resume = await Resume.findOne({
+    _id: resumeId,
+    user: userId,
+  });
+
+  if (!resume) {
+    throw createServiceError("Resume not found", 404);
+  }
+
+  const analysis = await ResumeAnalysis.findOne({
+    resume: resumeId,
+  });
+
+  if (!analysis) {
+    throw createServiceError("Resume analysis not found", 404);
+  }
+
+  return analysis;
+};
