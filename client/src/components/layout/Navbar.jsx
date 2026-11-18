@@ -14,7 +14,14 @@ const routeTitles = {
 export function Navbar({ onMenuClick, isSidebarOpen }) {
   const [isProfileOpen, setIsProfileOpen] = useState(false);
   const { pathname } = useLocation();
-  const title = routeTitles[pathname] || "Workspace";
+  const title =
+    pathname === "/resume"
+      ? "Resume"
+      : pathname.startsWith("/resume/")
+        ? pathname.endsWith("/analysis")
+          ? "Resume Analysis"
+          : "Resume Details"
+        : routeTitles[pathname] || "Workspace";
 
   return (
     <header className="sticky top-0 z-10 flex h-[70px] items-center justify-between border-b border-[#e4e7e4] bg-[rgba(255,253,250,0.94)] px-5 min-[761px]:h-[78px] min-[761px]:px-[clamp(20px,4vw,56px)]">

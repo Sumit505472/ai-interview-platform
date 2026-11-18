@@ -3,3 +3,6 @@ node_modules/
 
 # Uploaded resume files are local runtime data.
 server/src/uploads/resumes/*
+
+
+

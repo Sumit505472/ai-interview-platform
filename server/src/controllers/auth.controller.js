@@ -7,10 +7,12 @@ import User from "../models/user.js";
  */
 export const register = async (req, res) => {
   try {
-    const { fullName, fullname, email, password } = req.body;
-    const name = fullName || fullname;
+    const { email, password } = req.body;
+    const submittedName = req.body.fullName ?? req.body.fullname;
+    const fullName = typeof submittedName === "string" ? submittedName.trim() : "";
+    
 
-    if (!name || !email || !password) {
+    if (!fullName || !email || !password) {
       return res.status(400).json({ message: "Please fill all required fields" });
     }
 
@@ -22,7 +24,7 @@ export const register = async (req, res) => {
     const hashedPassword = await bcrypt.hash(password, 10);
 
     const newUser = await User.create({
-      fullname: name,
+      fullname: fullName,
       email,
       password: hashedPassword,
     });
@@ -136,12 +138,11 @@ export const me = async (req, res) => {
  */
 export const logout = (req, res) => {
   try {
-    res.cookie("token", token, {
-  httpOnly: true,
-  secure: process.env.NODE_ENV === "production",
-  sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
-  maxAge: 24 * 60 * 60 * 1000,
-});
+    res.clearCookie("token", {
+      httpOnly: true,
+      secure: process.env.NODE_ENV === "production",
+      sameSite: process.env.NODE_ENV === "production" ? "none" : "lax",
+    });
 
     return res.status(200).json({
       success: true,

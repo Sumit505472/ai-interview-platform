@@ -6,10 +6,10 @@ import { Register } from "./pages/Register/Register";
 import { PlaceholderPage } from "./pages/PlaceholderPage";
 import { Dashboard } from "./pages/Dashboard/Dashboard";
 import { Resume } from "./pages/Resume/Resume";
+import { ResumeDetails } from "./pages/Resume/ResumeDetails";
 import { ResumeAnalysis } from "./pages/ResumeAnalysis/ResumeAnalysis";
 export default function App() {
   const applicationRoutes = [
-    ["/resume", "Resume", "Resume management coming next."],
     ["/interviews", "Interviews", "Interview practice coming next."],
     ["/practice", "Practice", "Practice sessions coming next."],
     ["/history", "History", "Your practice history is coming next."],
@@ -23,8 +23,9 @@ export default function App() {
       <Route path="/register" element={<Register />} />
       <Route element={<AppLayout />}>
         <Route path="/dashboard" element={<Dashboard />} />
+        <Route path="/resume" element={<Resume />} />
         <Route path="/resume/:id/analysis" element={<ResumeAnalysis />} />
-        <Route path="/resume/:id" element={<Resume />} />
+        <Route path="/resume/:id" element={<ResumeDetails />} />
         {applicationRoutes.map(([path, title, description]) => (
           <Route
             key={path}

@@ -5,14 +5,24 @@ import authRoutes from "../src/routes/auth.routes.js"
 import resumeRoutes from "../src/routes/resume.routes.js"
 import resumeAnalysisRoutes from "../src/routes/resumeAnalysis.routes.js"
 import DBConnection from "./config/db.js"
+import cors from "cors"
 
 
 dotenv.config()
 const app=express()
 
+
+
+app.use(cors({
+origin: "http://localhost:5173",
+credentials: true,
+
+}))
+
 app.use(express.json())
 app.use(cookieParser())
 DBConnection()
+
 
 
 

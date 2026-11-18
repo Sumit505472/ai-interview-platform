@@ -1,3 +1,4 @@
+import "dotenv/config";
 import { GoogleGenAI } from "@google/genai";
 
 // Validate that GEMINI_API_KEY environment variable is set
